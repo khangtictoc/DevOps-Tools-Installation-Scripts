@@ -13,6 +13,8 @@ This directory contains installation scripts for various developer tools commonl
 
 ### Tools
 
+The below is the verified tools
+
 - [x] annacoda
 - [x] ansi_color
 - [x] ansible
@@ -56,6 +58,8 @@ This directory contains installation scripts for various developer tools commonl
 - [x] velero_cli
 - [x] yq
 
-For a full list of available tools: [Here](./linux/installation/developer-packages/ubuntu/tools.sh)
+### Usage
 
-Refer latest testing here:
+- Full list of available tools: [Here](./linux/installation/developer-packages/ubuntu/tools.sh)
+- Current tools script: [Folder](./linux/installation/developer-packages/ubuntu/tools/)
+- Refer latest testing here: [Github Actions](https://github.com/khangtictoc/DevOps-Tools-Installation-Scripts/actions/runs/22917259385/job/66505911041)
