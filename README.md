@@ -56,6 +56,6 @@ This directory contains installation scripts for various developer tools commonl
 - [x] velero_cli
 - [x] yq
 
-For a full list of available tools: [Here](./tools.sh)
+For a full list of available tools: [Here](./linux/installation/developer-packages/ubuntu/tools.sh)
 
-Refer latest pipeline here:
+Refer latest testing here:

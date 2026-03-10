@@ -20,6 +20,9 @@ on:
           - main
           - feat/macos-compat
 
+env:
+  REPO_NAME: DevOps-Tools-Installation-Scripts
+
 jobs:
   verify-configuration:
     runs-on: ubuntu-22.04
@@ -41,7 +44,7 @@ jobs:
           [ -f ~/.bashrc ] && sed -i '/conda/d' ~/.bashrc
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/anaconda.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/anaconda.sh | bash
 
   ansi_color-install:
     runs-on: ubuntu-22.04
@@ -51,7 +54,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/ansi
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/ansi_color.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/ansi_color.sh | bash
 
   ansible-install:
     runs-on: ubuntu-22.04
@@ -61,7 +64,7 @@ jobs:
         run: pip3 uninstall -y ansible ansible-core 2>/dev/null || true; sudo rm -f /usr/bin/ansible /usr/local/bin/ansible
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/ansible.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/ansible.sh | bash
 
   argocd_cli-install:
     runs-on: ubuntu-22.04
@@ -71,7 +74,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/argocd
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/argocd_cli.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/argocd_cli.sh | bash
 
   asciinema-install:
     runs-on: ubuntu-22.04
@@ -81,7 +84,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/asciinema; sudo apt-get remove -y asciinema 2>/dev/null || true
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/asciinema.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/asciinema.sh | bash
 
   aws_cli-install:
     runs-on: ubuntu-22.04
@@ -91,7 +94,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/aws /usr/local/bin/aws_completer; sudo rm -rf /usr/local/aws-cli
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/aws_cli.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/aws_cli.sh | bash
 
   az_cli-install:
     runs-on: ubuntu-22.04
@@ -101,7 +104,7 @@ jobs:
         run: sudo apt-get remove -y azure-cli 2>/dev/null || true; sudo rm -f /usr/bin/az /usr/local/bin/az
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/az_cli.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/az_cli.sh | bash
 
   bat-install:
     runs-on: ubuntu-22.04
@@ -111,7 +114,7 @@ jobs:
         run: sudo apt-get remove -y bat 2>/dev/null || true; sudo rm -f /usr/local/bin/bat
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/bat.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/bat.sh | bash
 
   detect_secrets-install:
     runs-on: ubuntu-22.04
@@ -121,7 +124,7 @@ jobs:
         run: pip3 uninstall -y detect-secrets 2>/dev/null || true; sudo rm -f /usr/local/bin/detect-secrets
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/detect_secrets.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/detect_secrets.sh | bash
 
   dive-install:
     runs-on: ubuntu-22.04
@@ -131,7 +134,7 @@ jobs:
         run: sudo apt-get remove -y dive 2>/dev/null || true; sudo rm -f /usr/local/bin/dive
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/dive.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/dive.sh | bash
 
   docker-install:
     runs-on: ubuntu-22.04
@@ -145,7 +148,7 @@ jobs:
           sudo rm -f /etc/apt/sources.list.d/docker.list /usr/share/keyrings/docker-archive-keyring.gpg
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/docker.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/docker.sh | bash
 
   gcp_cli-install:
     runs-on: ubuntu-22.04
@@ -155,7 +158,7 @@ jobs:
         run: sudo apt-get remove -y google-cloud-cli google-cloud-sdk 2>/dev/null || true; sudo rm -f /usr/bin/gcloud /usr/local/bin/gcloud
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/gcp_cli.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/gcp_cli.sh | bash
 
   git_filter_repo-install:
     runs-on: ubuntu-22.04
@@ -165,7 +168,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/git-filter-repo
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/git_filter_repo.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/git_filter_repo.sh | bash
 
   glab-install:
     runs-on: ubuntu-22.04
@@ -175,7 +178,7 @@ jobs:
         run: sudo apt-get remove -y glab 2>/dev/null || true; sudo rm -f /usr/local/bin/glab
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/glab.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/glab.sh | bash
 
   go-install:
     runs-on: ubuntu-22.04
@@ -185,7 +188,7 @@ jobs:
         run: sudo rm -rf /usr/local/go; sudo rm -f /usr/local/bin/go /usr/local/bin/gofmt
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/go.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/go.sh | bash
 
   hcp_vault-install:
     runs-on: ubuntu-22.04
@@ -195,7 +198,7 @@ jobs:
         run: sudo apt-get remove -y vault 2>/dev/null || true; sudo rm -f /usr/bin/vault /usr/local/bin/vault
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/hcp_vault.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/hcp_vault.sh | bash
 
   helm-install:
     runs-on: ubuntu-22.04
@@ -205,7 +208,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/helm
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/helm.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/helm.sh | bash
 
   jtbl-install:
     runs-on: ubuntu-22.04
@@ -215,7 +218,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/jtbl
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/jtbl.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/jtbl.sh | bash
 
   k9s-install:
     runs-on: ubuntu-22.04
@@ -225,7 +228,7 @@ jobs:
         run: sudo apt-get remove -y k9s 2>/dev/null || true; sudo rm -f /usr/local/bin/k9s
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/k9s.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/k9s.sh | bash
 
   kube_linter-install:
     runs-on: ubuntu-22.04
@@ -235,7 +238,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/kube-linter
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/kube_linter.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/kube_linter.sh | bash
 
   kubectl-install:
     runs-on: ubuntu-22.04
@@ -245,7 +248,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/kubectl /usr/bin/kubectl
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/kubectl.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/kubectl.sh | bash
 
   kubectl_plugins-install:
     runs-on: ubuntu-22.04
@@ -258,7 +261,7 @@ jobs:
           sed -i '/krew/d' ~/.bashrc ~/.zshrc 2>/dev/null || true
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/kubectl_plugins.sh | SHELLRC_FILE="$HOME/.${{ github.event.inputs.shell_type }}rc" bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/kubectl_plugins.sh | SHELLRC_FILE="$HOME/.${{ github.event.inputs.shell_type }}rc" bash
 
   kubesec-install:
     runs-on: ubuntu-22.04
@@ -268,7 +271,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/kubesec
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/kubesec.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/kubesec.sh | bash
 
   ls_extended-install:
     runs-on: ubuntu-22.04
@@ -278,7 +281,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/ls_extended
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/ls_extended.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/ls_extended.sh | bash
 
   maven-install:
     runs-on: ubuntu-22.04
@@ -288,7 +291,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/mvn; sudo rm -rf /opt/maven
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/maven.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/maven.sh | bash
 
   mongodb_cli-install:
     runs-on: ubuntu-22.04
@@ -300,7 +303,7 @@ jobs:
           sudo rm -f /usr/bin/mongodump /usr/bin/mongorestore /usr/bin/mongosh /usr/local/bin/mongodump /usr/local/bin/mongosh
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/mongodb_cli.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/mongodb_cli.sh | bash
 
   ngrok-install:
     runs-on: ubuntu-22.04
@@ -310,7 +313,7 @@ jobs:
         run: sudo apt-get remove -y ngrok 2>/dev/null || true; sudo rm -f /usr/local/bin/ngrok /usr/bin/ngrok
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/ngrok.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/ngrok.sh | bash
 
   nodejs-install:
     runs-on: ubuntu-22.04
@@ -323,7 +326,7 @@ jobs:
           rm -rf "$HOME/.nvm"
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/nodejs.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/nodejs.sh | bash
 
   nvtop-install:
     runs-on: ubuntu-22.04
@@ -333,7 +336,7 @@ jobs:
         run: sudo apt-get remove -y nvtop 2>/dev/null || true; sudo rm -f /usr/local/bin/nvtop /usr/bin/nvtop
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/nvtop.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/nvtop.sh | bash
 
   packer-install:
     runs-on: ubuntu-22.04
@@ -343,7 +346,7 @@ jobs:
         run: sudo apt-get remove -y packer 2>/dev/null || true; sudo rm -f /usr/local/bin/packer /usr/bin/packer
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/packer.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/packer.sh | bash
 
   perf-install:
     runs-on: ubuntu-22.04
@@ -352,7 +355,7 @@ jobs:
     steps:
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/perf.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/perf.sh | bash
 
   ruby-install:
     runs-on: ubuntu-22.04
@@ -365,7 +368,7 @@ jobs:
           rm -rf "$HOME/.rbenv"
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/ruby.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/ruby.sh | bash
 
   sqlcmd-install:
     runs-on: ubuntu-22.04
@@ -375,7 +378,7 @@ jobs:
         run: sudo apt-get remove -y mssql-tools18 2>/dev/null || true; sudo rm -f /opt/mssql-tools18/bin/sqlcmd /usr/local/bin/sqlcmd
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/sqlcmd.sh | SHELLRC_FILE="$HOME/.${{ github.event.inputs.shell_type }}rc" bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/sqlcmd.sh | SHELLRC_FILE="$HOME/.${{ github.event.inputs.shell_type }}rc" bash
 
   sysz-install:
     runs-on: ubuntu-22.04
@@ -385,7 +388,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/sysz
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/sysz.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/sysz.sh | bash
 
   taws-install:
     runs-on: ubuntu-22.04
@@ -395,7 +398,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/taws
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/taws.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/taws.sh | bash
 
   terraform-install:
     runs-on: ubuntu-22.04
@@ -405,7 +408,7 @@ jobs:
         run: sudo apt-get remove -y terraform 2>/dev/null || true; sudo rm -f /usr/local/bin/terraform /usr/bin/terraform
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/terraform.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/terraform.sh | bash
 
   terragrunt-install:
     runs-on: ubuntu-22.04
@@ -415,7 +418,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/terragrunt
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/terragrunt.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/terragrunt.sh | bash
 
   tufw-install:
     runs-on: ubuntu-22.04
@@ -425,7 +428,7 @@ jobs:
         run: sudo apt-get remove -y tufw 2>/dev/null || true; sudo rm -f /usr/local/bin/tufw
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/tufw.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/tufw.sh | bash
 
   vagrant-install:
     runs-on: ubuntu-22.04
@@ -437,7 +440,7 @@ jobs:
         run: sudo apt-get remove -y vagrant 2>/dev/null || true; sudo rm -f /usr/local/bin/vagrant /usr/bin/vagrant
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/vagrant.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/vagrant.sh | bash
 
   velero_cli-install:
     runs-on: ubuntu-22.04
@@ -447,7 +450,7 @@ jobs:
         run: sudo rm -f /usr/local/bin/velero
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/velero_cli.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/velero_cli.sh | bash
 
   yq-install:
     runs-on: ubuntu-22.04
@@ -457,7 +460,7 @@ jobs:
         run: sudo apt-get remove -y yq 2>/dev/null || true; sudo rm -f /usr/local/bin/yq /usr/bin/yq
       - name: Execute Installation
         run: |
-          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/yq.sh | bash
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/yq.sh | bash
 
   summary-results:
     runs-on: ubuntu-22.04
