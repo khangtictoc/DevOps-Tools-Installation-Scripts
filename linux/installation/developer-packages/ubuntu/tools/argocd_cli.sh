@@ -21,9 +21,7 @@ detect_argocd_binary() {
 if ! command -v argocd &>/dev/null; then
     echo "[INSTALLING ⬇️] ArgoCD CLI"
     BINARY=$(detect_argocd_binary)
-    curl -fsSL --progress-bar \
-        "https://github.com/argoproj/argo-cd/releases/download/${ARGO_CLI_VERSION}/${BINARY}" \
-        -o argocd
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/argoproj/argo-cd/releases/download/${ARGO_CLI_VERSION}/${BINARY}" -o argocd
     sudo chmod +x argocd
     sudo mv argocd /usr/local/bin/argocd
 

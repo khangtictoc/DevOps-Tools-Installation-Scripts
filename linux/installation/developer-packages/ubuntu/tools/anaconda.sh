@@ -24,7 +24,7 @@ if ! command -v conda &>/dev/null; then
     INSTALLER=$(detect_anaconda_platform)
 
     echo "[INFO] Downloading $INSTALLER..."
-    curl -fsSL "https://repo.anaconda.com/archive/$INSTALLER" -o "$INSTALLER"
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://repo.anaconda.com/archive/$INSTALLER" -o "$INSTALLER"
 
     bash "$INSTALLER" -u << EOF
 

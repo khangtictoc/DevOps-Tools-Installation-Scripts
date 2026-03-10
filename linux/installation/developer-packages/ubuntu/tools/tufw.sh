@@ -1,17 +1,30 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
-TUFW_CLI_VERION=0.2.4
+TUFW_CLI_VERSION="0.2.4"
 
-if ! command -v tufw 2>&1 >/dev/null
-then
-    echo "[INSTALLING ⬇️ ] tufw"
-    wget https://github.com/peltho/tufw/releases/download/v${TUFW_CLI_VERION}/tufw_${TUFW_CLI_VERION}_linux_amd64.deb
-    sudo dpkg -i tufw_${TUFW_CLI_VERION}_linux_amd64.deb
+if [[ "$(uname -s)" != "Linux" ]]; then
+    echo "[SKIP] tufw is Linux-only (requires ufw). Skipping on $(uname -s)."
+    exit 0
+fi
 
-    echo "[INFO] >>>> Clean Up"
-    rm -f tufw_${TUFW_CLI_VERION}_linux_amd64.deb
+if ! command -v tufw &>/dev/null; then
+    echo "[INSTALLING ⬇️] tufw v${TUFW_CLI_VERSION}"
 
-    if ! command -v tufw &> /dev/null; then
+    case "$(uname -m)" in
+        x86_64)          arch="amd64" ;;
+        arm64 | aarch64) arch="arm64" ;;
+        *) echo "[ERROR] Unsupported architecture"; exit 1 ;;
+    esac
+
+    DEB="tufw_${TUFW_CLI_VERSION}_linux_${arch}.deb"
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/peltho/tufw/releases/download/v${TUFW_CLI_VERSION}/${DEB}" \
+        -o "$DEB"
+    sudo dpkg -i "$DEB"
+
+    echo "[INFO] Clean up"
+    rm -f "$DEB"
+
+    if ! command -v tufw &>/dev/null; then
         echo "[FAIL ❌] tufw installation failed!"
         exit 1
     fi

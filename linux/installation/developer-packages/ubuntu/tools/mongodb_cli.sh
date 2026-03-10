@@ -1,45 +1,53 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
-MONGO_CLI_VERSION=100.12.2
-MONGOSH_CLI_VERSION=8.0
+MONGO_CLI_VERSION="100.12.2"
+MONGOSH_CLI_VERSION="8.0"
 
-if ! command -v mongo 2>&1 >/dev/null || ! command -v mongosh 2>&1 >/dev/null
-then
-    echo "[INFO] Get System OS Info"
-    ARCH="$(uname -m)"
-    UBUNTU_VERSION="$(lsb_release -rs | tr -d '.')"
-    source /etc/os-release
-    OS_CODENAME="$ID$UBUNTU_VERSION"
+if ! command -v mongodump &>/dev/null || ! command -v mongosh &>/dev/null; then
+    echo "[INSTALLING ⬇️] MongoDB CLI Tools"
 
-    echo "[INSTALLING ⬇️ ] MongoDB CLI Tools"
-    ## MongoDB Database Tools
-    wget "https://fastdl.mongodb.org/tools/db/mongodb-database-tools-$OS_CODENAME-$ARCH-$MONGO_CLI_VERSION.deb"
-    sudo dpkg -i mongodb-database-tools-$OS_CODENAME-$ARCH-$MONGO_CLI_VERSION.deb
-    
-    echo "[INFO] >>>> Clean Up"
-    rm -f mongodb-database-tools-$OS_CODENAME-$ARCH-$MONGO_CLI_VERSION.deb
+    case "$(uname -s)" in
+        Darwin)
+            brew tap mongodb/brew
+            brew install mongodb-database-tools
+            brew install mongosh
+            ;;
+        Linux)
+            ARCH="$(uname -m)"
+            UBUNTU_VERSION="$(lsb_release -rs | tr -d '.')"
+            source /etc/os-release
+            OS_CODENAME="${ID}${UBUNTU_VERSION}"
 
-    ## MongoDB Shell (mongosh)
-    wget -qO- https://www.mongodb.org/static/pgp/server-$MONGOSH_CLI_VERSION.asc \
-        | sudo tee /etc/apt/trusted.gpg.d/server-$MONGOSH_CLI_VERSION.asc
-    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/$MONGOSH_CLI_VERSION multiverse" \
-        | sudo tee /etc/apt/sources.list.d/mongodb-org-$MONGOSH_CLI_VERSION.list
-    sudo apt-get update
-    sudo apt-get install -y mongodb-mongosh
+            # MongoDB Database Tools
+            DEB="mongodb-database-tools-${OS_CODENAME}-${ARCH}-${MONGO_CLI_VERSION}.deb"
+            curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://fastdl.mongodb.org/tools/db/${DEB}" -o "$DEB"
+            sudo dpkg -i "$DEB"
+            rm -f "$DEB"
 
-    if ! command -v mongodump &> /dev/null &> /dev/null; then
-        echo "[FAIL ❌] mongo installation failed!"
+            # MongoDB Shell (mongosh)
+            curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://www.mongodb.org/static/pgp/server-${MONGOSH_CLI_VERSION}.asc" \
+                | sudo tee /etc/apt/trusted.gpg.d/server-${MONGOSH_CLI_VERSION}.asc > /dev/null
+            echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/${MONGOSH_CLI_VERSION} multiverse" \
+                | sudo tee /etc/apt/sources.list.d/mongodb-org-${MONGOSH_CLI_VERSION}.list > /dev/null
+            sudo apt-get update
+            sudo apt-get install -y mongodb-mongosh
+            ;;
+        *)
+            echo "[ERROR] Unsupported OS"; exit 1
+            ;;
+    esac
+
+    if ! command -v mongodump &>/dev/null; then
+        echo "[FAIL ❌] mongodb-database-tools installation failed!"
         exit 1
     fi
+    echo "[CHECKED ✅] MongoDB CLI tools installed! Try 'mongodump', 'mongorestore', ..."
 
-    echo "[CHECKED ✅] Set of mongo commands installed! Try 'mongodump', 'mongorestore', ..."
-
-    if ! command -v mongosh &> /dev/null; then
+    if ! command -v mongosh &>/dev/null; then
         echo "[FAIL ❌] mongosh installation failed!"
         exit 1
     fi
-
-    echo "[CHECKED ✅] mongosh command installed!"
+    echo "[CHECKED ✅] mongosh installed!"
 else
-    echo "[CHECKED ✅] mongosh + set of mongo commands exists!. Try 'mongodump', 'mongorestore', ..."
+    echo "[CHECKED ✅] mongosh + MongoDB CLI tools already exist"
 fi

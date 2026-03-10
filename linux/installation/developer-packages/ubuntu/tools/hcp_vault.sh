@@ -1,29 +1,29 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
-if ! command -v vault 2>&1 >/dev/null
-then
-    echo "[INSTALLING ⬇️ ] Vault"
-    wget \
-        -O - https://apt.releases.hashicorp.com/gpg \
-        | sudo gpg --yes --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-    
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" \
-        | sudo tee /etc/apt/sources.list.d/hashicorp.list
-        
-    sudo apt update
+if ! command -v vault &>/dev/null; then
+    echo "[INSTALLING ⬇️] Vault"
 
-    if sudo apt install -y vault; then
-        echo "Vault installed successfully with apt."
-    else
-        echo "apt installation failed, trying snap..."
-        if sudo snap install vault; then
-            echo "Vault installed successfully with snap."
-        else
-            echo "Both apt and snap installation failed."
-        fi
-    fi
+    case "$(uname -s)" in
+        Darwin)
+            brew tap hashicorp/tap
+            brew install hashicorp/tap/vault
+            ;;
+        Linux)
+            curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL https://apt.releases.hashicorp.com/gpg \
+                | sudo gpg --yes --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 
-    if ! command -v vault &> /dev/null; then
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" \
+                | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
+
+            sudo apt update
+            sudo apt install -y vault
+            ;;
+        *)
+            echo "[ERROR] Unsupported OS"; exit 1
+            ;;
+    esac
+
+    if ! command -v vault &>/dev/null; then
         echo "[FAIL ❌] vault installation failed!"
         exit 1
     fi

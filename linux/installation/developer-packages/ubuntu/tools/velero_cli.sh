@@ -1,17 +1,42 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
 VELERO_VERSION="v1.17.0"
 
-if ! command -v velero 2>&1 >/dev/null
-then
-    wget "https://github.com/vmware-tanzu/velero/releases/download/$VELERO_VERSION/velero-$VELERO_VERSION-linux-amd64.tar.gz"
-    tar xfvz velero-$VELERO_VERSION-linux-amd64.tar.gz
-    sudo cp velero-$VELERO_VERSION-linux-amd64/velero /usr/local/bin
+if ! command -v velero &>/dev/null; then
+    echo "[INSTALLING ⬇️] Velero ${VELERO_VERSION}"
 
-    echo "[INFO] >>>> Clean Up"
-    rm -drf velero-$VELERO_VERSION-linux-amd64.tar.gz velero-$VELERO_VERSION-linux-amd64
+    case "$(uname -s)" in
+        Darwin)
+            case "$(uname -m)" in
+                x86_64)          arch="amd64" ;;
+                arm64 | aarch64) arch="arm64" ;;
+                *) echo "[ERROR] Unsupported architecture"; exit 1 ;;
+            esac
+            os="darwin"
+            ;;
+        Linux)
+            case "$(uname -m)" in
+                x86_64)          arch="amd64" ;;
+                arm64 | aarch64) arch="arm64" ;;
+                *) echo "[ERROR] Unsupported architecture"; exit 1 ;;
+            esac
+            os="linux"
+            ;;
+        *)
+            echo "[ERROR] Unsupported OS"; exit 1
+            ;;
+    esac
 
-    if ! command -v velero &> /dev/null; then
+    TARBALL="velero-${VELERO_VERSION}-${os}-${arch}.tar.gz"
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/vmware-tanzu/velero/releases/download/${VELERO_VERSION}/${TARBALL}" \
+        -o "$TARBALL"
+    tar -xzf "$TARBALL"
+    sudo cp "velero-${VELERO_VERSION}-${os}-${arch}/velero" /usr/local/bin/velero
+
+    echo "[INFO] Clean up"
+    rm -rf "$TARBALL" "velero-${VELERO_VERSION}-${os}-${arch}"
+
+    if ! command -v velero &>/dev/null; then
         echo "[FAIL ❌] velero installation failed!"
         exit 1
     fi

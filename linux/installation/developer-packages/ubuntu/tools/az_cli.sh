@@ -1,56 +1,53 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-if ! command -v az 2>&1 >/dev/null
-then
-    echo "[INSTALLING ⬇️ ] Azure CLI"
-    # Check if running as root
-    if [ "$EUID" -ne 0 ]; then 
-        echo "Please run as root or with sudo"
-        exit 1
-    fi
+if ! command -v az &>/dev/null; then
+    echo "[INSTALLING ⬇️] Azure CLI"
 
-# Detect OS
-if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    OS=$NAME
-    # Extract major version number
-    MAJOR_VERSION=$(echo $VERSION_ID | cut -d. -f1)
-else
-    echo "Cannot detect OS"
-    exit 1
-fi
+    case "$(uname -s)" in
+        Darwin)
+            brew install azure-cli
+            ;;
+        Linux)
+            if [ -f /etc/os-release ]; then
+                . /etc/os-release
+                case "$ID" in
+                    ubuntu|debian)
+                        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+                        ;;
+                    rhel)
+                        MAJOR_VERSION=$(echo "$VERSION_ID" | cut -d. -f1)
+                        rpm --import https://packages.microsoft.com/keys/microsoft.asc
+                        if [ "$MAJOR_VERSION" == "8" ]; then
+                            dnf install -y https://packages.microsoft.com/config/rhel/8/packages-microsoft-prod.rpm
+                        elif [ "$MAJOR_VERSION" == "9" ]; then
+                            dnf install -y https://packages.microsoft.com/config/rhel/9.0/packages-microsoft-prod.rpm
+                        else
+                            echo "[ERROR] Unsupported RHEL version: $MAJOR_VERSION"
+                            exit 1
+                        fi
+                        dnf install -y azure-cli
+                        ;;
+                    *)
+                        echo "[ERROR] Unsupported Linux distro: $ID"
+                        exit 1
+                        ;;
+                esac
+            else
+                echo "[ERROR] Cannot detect OS"
+                exit 1
+            fi
+            ;;
+        *)
+            echo "[ERROR] Unsupported OS"
+            exit 1
+            ;;
+    esac
 
-# Install Azure CLI based on OS
-if [[ "$OS" == *"Red Hat"* ]]; then
-    if [ "$MAJOR_VERSION" == "8" ]; then
-        echo "Installing Azure CLI for RHEL 8..."
-        rpm --import https://packages.microsoft.com/keys/microsoft.asc
-        dnf install -y https://packages.microsoft.com/config/rhel/8/packages-microsoft-prod.rpm
-        dnf install azure-cli
-    elif [ "$MAJOR_VERSION" == "9" ]; then
-        echo "Installing Azure CLI for RHEL 9..."
-        rpm --import https://packages.microsoft.com/keys/microsoft.asc
-        dnf install -y https://packages.microsoft.com/config/rhel/9.0/packages-microsoft-prod.rpm
-        dnf install -y azure-cli
-    else
-        echo "Unsupported RHEL version"
-        exit 1
-    fi
-elif [[ "$OS" == *"Ubuntu"* ]]; then
-    echo "Installing Azure CLI for Ubuntu..."
-    curl  -sL https://aka.ms/InstallAzureCLIDeb | bash
-else
-    echo "Unsupported OS: $OS"
-    exit 1
-fi
-
-    echo "Azure CLI installation completed"
-
-    if ! command -v az &> /dev/null; then
+    if ! command -v az &>/dev/null; then
         echo "[FAIL ❌] az installation failed!"
         exit 1
     fi
-    
+
     echo "[CHECKED ✅] az command installed!"
 else
     echo "[CHECKED ✅] az command exists"
