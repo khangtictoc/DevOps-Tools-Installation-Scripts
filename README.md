@@ -9,7 +9,7 @@ This directory contains installation scripts for various developer tools commonl
 - [x] Ubuntu
 - [ ] RedHat
 - [ ] Debian-based
-- [ ] MacOS
+- [x] MacOS (No automation test, manual test)
 
 ### Tools
 
@@ -57,3 +57,5 @@ This directory contains installation scripts for various developer tools commonl
 - [x] yq
 
 For a full list of available tools: [Here](./tools.sh)
+
+Refer latest pipeline here:
