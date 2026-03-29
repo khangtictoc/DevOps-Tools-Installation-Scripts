@@ -328,6 +328,15 @@ sudo apt install -y certbot python3-certbot-nginx
 # │                            │
 # └────────────────────────────┘
 
+# AppArmor - Rules for Linux Syscalls (Real Linux)
+sudo apt install -y apparmor apparmor-utils
+sudo systemctl enable apparmor
+sudo systemctl start apparmor
+
+# Tracee - Strace on Kubernetes (K8s Cluster Only)
+# https://github.com/aquasecurity/tracee/releases/download/v0.24.1/tracee-x86_64.v0.24.1.tar.gz
+
+
 # ---- SCAN SECRETS ----
 
 ## GGShield
