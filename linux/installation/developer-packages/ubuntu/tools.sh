@@ -333,6 +333,19 @@ sudo apt install -y apparmor apparmor-utils
 sudo systemctl enable apparmor
 sudo systemctl start apparmor
 
+
+# ┌────────────────────────────┐
+# │                            │
+# │      Pentesting Tools      │
+# │                            │
+# └────────────────────────────┘
+
+# ---- REVERSE ENGINEERING ----
+
+## Binwalk - Binary Analysis
+curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/binwalk.sh | bash
+
+
 # Tracee - Strace on Kubernetes (K8s Cluster Only)
 # https://github.com/aquasecurity/tracee/releases/download/v0.24.1/tracee-x86_64.v0.24.1.tar.gz
 
@@ -390,3 +403,9 @@ curl -fsSL https://claude.ai/install.sh | bash
 # --- LLM ---
 ## Ollama
 curl -fsSL https://ollama.com/install.sh | sh
+
+
+# --- AGENT ---
+
+## OpenClaw
+curl -fsSL https://openclaw.ai/install.sh | bash -s -- --install-method git
