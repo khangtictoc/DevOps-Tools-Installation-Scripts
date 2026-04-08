@@ -343,7 +343,7 @@ sudo systemctl start apparmor
 # ---- REVERSE ENGINEERING ----
 
 ## Binwalk - Binary Analysis
-curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/binwalk.sh | bash
+curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/binwalk.sh | sudo bash
 
 
 # Tracee - Strace on Kubernetes (K8s Cluster Only)

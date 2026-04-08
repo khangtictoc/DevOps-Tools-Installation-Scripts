@@ -15,32 +15,36 @@ detect_os() {
   fi
 }
 
+main_install() {
+  sudo apt update
+  sudo apt install -y build-essential libfontconfig1-dev liblzma-dev
+  cargo install binwalk
+}
+
 OS=$(detect_os)
 
 if ! command -v binwalk &>/dev/null; then
-    case "$OS" in
-    Ubuntu)
-        echo "✓ Detected Ubuntu - Installing 'binwalk' dependencies with Cargo ..."
-        main_install
+  case "$OS" in
+  Ubuntu)
+    echo "✓ Detected Ubuntu - Installing 'binwalk' dependencies with Cargo ..."
+    main_install
 
-        if ! binwalk -h &>/dev/null; then
-            echo "[FAIL ❌] binwalk installation failed!"
-            exit 1
-        fi
+    if ! binwalk -h &>/dev/null; then
+      echo "[FAIL ❌] binwalk installation failed!"
+      exit 1
+    fi
 
-        echo "[CHECKED ✅] binwalk command installed!"
-        ;;
-    macOS)
-        echo "[FAIL ❌] MacOS is not compatible. Binwalk installation failed!"
-        ;;
-    *)
-        echo "[FAIL ❌] Unknown OS. Binwalk installation failed!"
-        ;;
-    esac
+    echo "[CHECKED ✅] binwalk command installed!"
+    ;;
+  macOS)
+    echo "[FAIL ❌] MacOS is not compatible. Binwalk installation failed!"
+    exit 1
+    ;;
+  *)
+    echo "[FAIL ❌] Unknown OS. Binwalk installation failed!"
+    exit 1
+    ;;
+  esac
 else
-
-function main_install(){
-    sudo apt update
-    sudo apt install -y build-essential libfontconfig1-dev liblzma-dev
-    cargo install binwalk
-}
+  echo "[CHECKED ✅] binwalk is already installed!"
+fi
