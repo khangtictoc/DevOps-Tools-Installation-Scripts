@@ -321,6 +321,41 @@ curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation
 ## Certbot(Let's Encrypt)
 sudo apt install -y certbot python3-certbot-nginx
 
+# ┌────────────────────────────┐
+# │                            │
+# │      Pentesting Tools      │
+# │                            │
+# └────────────────────────────┘
+
+# ---- REVERSE ENGINEERING ----
+
+## Binwalk - Binary Analysis
+curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/binwalk.sh | sudo bash
+
+# ---- SYSTEM EXPLOITATION ----
+
+## Hping3
+sudo apt install -y hping3
+
+# ---- WEB EXPLOITATION ----
+
+## Burpsuite
+curl -L "https://portswigger.net/burp/releases/download?product=community&version=2026.3.3&type=Linux" | bash
+
+# ---- FORENSIC ----
+
+## TestDisk, PhotoRec - Recover lost partitions and files
+
+# Option 1
+curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/testdisk.sh | sudo bash
+
+# Option 2
+sudo apt install -y testdisk
+
+# ---- STEGANOGRAPHY ----
+
+## Steghide - Hide data in image/audio files
+sudo apt install -y steghide
 
 # ┌────────────────────────────┐
 # │                            │
@@ -332,18 +367,6 @@ sudo apt install -y certbot python3-certbot-nginx
 sudo apt install -y apparmor apparmor-utils
 sudo systemctl enable apparmor
 sudo systemctl start apparmor
-
-
-# ┌────────────────────────────┐
-# │                            │
-# │      Pentesting Tools      │
-# │                            │
-# └────────────────────────────┘
-
-# ---- REVERSE ENGINEERING ----
-
-## Binwalk - Binary Analysis
-curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/binwalk.sh | sudo bash
 
 
 # Tracee - Strace on Kubernetes (K8s Cluster Only)
@@ -408,4 +431,4 @@ curl -fsSL https://ollama.com/install.sh | sh
 # --- AGENT ---
 
 ## OpenClaw
-curl -fsSL https://openclaw.ai/install.sh | bash -s -- --install-method git
+curl -fsSL https://openclaw.ai/install.sh | bash
