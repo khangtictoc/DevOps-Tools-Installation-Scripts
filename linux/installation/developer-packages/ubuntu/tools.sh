@@ -118,6 +118,13 @@ cargo install bandwhich
 curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash
 sudo apt-get install speedtest
 
+## Rustnet- Managing ports and processes
+## Ubuntu > 26.04
+sudo add-apt-repository ppa:domcyrus/rustnet
+sudo apt update && sudo apt install rustnet
+## Else
+cargo install rustnet-monitor
+
 # --- KERNEL MANAGEMENT ---
 ## kmon # View kernel's modules
 cargo install kmon
