@@ -6,6 +6,7 @@ if ! command -v rustnet 2>&1 >/dev/null
 then
     wget "https://github.com/domcyrus/rustnet/releases/download/${RUSTNET_VERSION}/Rustnet_LinuxDEB_amd64.deb"
     sudo dpkg -i Rustnet_LinuxDEB_amd64.deb
+    rm Rustnet_LinuxDEB_amd64.deb
 
     if ! command -v rustnet &> /dev/null; then
         echo "[FAIL ❌] rustnet installation failed!"

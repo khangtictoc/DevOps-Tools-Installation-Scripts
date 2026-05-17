@@ -119,11 +119,11 @@ curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.
 sudo apt-get install speedtest
 
 ## Rustnet- Managing ports and processes
-## Ubuntu > 26.04
+## Ubuntu 25.10+
 sudo add-apt-repository ppa:domcyrus/rustnet
 sudo apt update && sudo apt install rustnet
 ## Else
-cargo install rustnet-monitor
+curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/rustnet.sh | sudo bash
 
 # --- KERNEL MANAGEMENT ---
 ## kmon # View kernel's modules
