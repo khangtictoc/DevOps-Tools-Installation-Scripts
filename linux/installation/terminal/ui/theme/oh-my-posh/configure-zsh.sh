@@ -10,7 +10,7 @@
 OH_MY_POSH_THEME="kushal"
 SHELL_EXPORTS="
 
-# --- SOURCE DOTFILES SCRIPT ----------------------------
+# --- OH-MY-POSH INIT ----------------------------
 
 eval \"\$(oh-my-posh init zsh --config ~/.cache/oh-my-posh/themes/$OH_MY_POSH_THEME.omp.json)\"
 "
