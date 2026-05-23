@@ -12,7 +12,7 @@ SHELL_EXPORTS="
 
 # --- OH-MY-POSH INIT ----------------------------
 
-eval \"\$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/$OH_MY_POSH_THEME.omp.json'\"
+eval \"\$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/$OH_MY_POSH_THEME.omp.json')\"
 "
 
 # --- MAIN ----------
