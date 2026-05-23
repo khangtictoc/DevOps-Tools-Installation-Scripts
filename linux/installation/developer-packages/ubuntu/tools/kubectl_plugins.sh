@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-# Note: Remember to "export SHELLRC_FILE", e.g. '$HOME/.zshrc' or '$HOME/.bashrc'
+# Note: Remember to "export SHELL_PROFILE", e.g. '$HOME/.zshrc' or '$HOME/.bashrc'
 
 # --- Install Krew -----------------------------------------------
 
 if ! kubectl krew version &>/dev/null; then
+
     echo "[INFO] Determining system info..."
     OS="$(uname | tr '[:upper:]' '[:lower:]')"
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')"
+
     KREW="krew-${OS}_${ARCH}"
 
     echo "[INSTALLING ⬇️] Krew"
@@ -21,10 +23,10 @@ if ! kubectl krew version &>/dev/null; then
 
     echo "[INFO] Adding Krew to PATH..."
     EXPORT_KREW_PATH='export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"'
-    if grep -Fxq "$EXPORT_KREW_PATH" "$SHELLRC_FILE"; then
+    if grep -Fxq "$EXPORT_KREW_PATH" "$SHELL_PROFILE"; then
         echo "✅ Krew PATH already set. No changes."
     else
-        echo "$EXPORT_KREW_PATH" >> "$SHELLRC_FILE"
+        echo "$EXPORT_KREW_PATH" >> "$SHELL_PROFILE"
         echo "✅ Krew binary added to PATH!"
     fi
 
@@ -49,6 +51,7 @@ kubectl krew install view-secret
 # --- kubectl-node-shell -----------------------------------------
 
 if ! command -v kubectl-node_shell &>/dev/null; then
+
     echo "[INSTALLING ⬇️] kubectl-node-shell"
     curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell" \
         -o kubectl-node_shell
