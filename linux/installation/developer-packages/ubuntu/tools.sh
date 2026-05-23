@@ -3,7 +3,7 @@
 
 ## ENVIRONMENT VARIABLES ##
 
-SHELLRC_FILE="$HOME/.zshrc"
+SHELL_PROFILE="$HOME/.zshrc"
 
 # ┌──────────────────────────────────────┐
 # │                                      │
@@ -22,6 +22,7 @@ sudo apt install -y curl
 sudo apt install -y dos2unix
 sudo apt install -y file
 sudo apt install -y ffmpeg # Video operations
+sudo apt install -y zsh
 
 
 # --- WSL ---
@@ -222,7 +223,7 @@ sudo apt install -y mysql-client
 npm install -g redis-cli
 
 ## SQL Server (MSSQL) CLI
-curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/sqlcmd.sh | SHELLRC_FILE=$SHELLRC_FILE bash
+curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/sqlcmd.sh | SHELL_PROFILE=$SHELL_PROFILE bash
 
 ## Postgres
 sudo apt install -y postgresql-client # Already include pgdump, pg_restore, psql, etc.
@@ -266,7 +267,7 @@ curl -sSfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/ins
 curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/kubectl.sh | bash
 
 ## Plugins for Kubectl
-curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/kubectl_plugins.sh | SHELLRC_FILE=$SHELLRC_FILE bash
+curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/kubectl_plugins.sh | SHELL_PROFILE=$SHELL_PROFILE bash
 
 ## Kube-linter
 curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/kube_linter.sh | bash
