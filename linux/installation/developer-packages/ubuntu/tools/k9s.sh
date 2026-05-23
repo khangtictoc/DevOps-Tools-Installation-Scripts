@@ -2,7 +2,7 @@
 
 K9S_VERSION="0.32.7"
 THEME="catppuccin-mocha"
-CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/k9s/config.yml"
+CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/k9s/config.yaml"
 
 # --- Install k9s ------------------------------------------------
 if ! command -v k9s &>/dev/null; then
@@ -21,7 +21,7 @@ if ! command -v k9s &>/dev/null; then
 
             curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_linux_${arch}.deb" \
                 -o "k9s_linux_${arch}.deb"
-            sudo apt install -y "./k9s_linux_${arch}.deb"
+            sudo dpkg -i "./k9s_linux_${arch}.deb"
 
             echo "[INFO] Clean up"
             rm "k9s_linux_${arch}.deb"
@@ -57,11 +57,12 @@ if [[ "$(uname -s)" == "Linux" ]] && ! command -v xclip &>/dev/null; then
 fi
 
 # --- Configure k9s theme ----------------------------------------
+
 echo "[INFO] Configuring k9s theme: ${THEME}"
 OUT="${XDG_CONFIG_HOME:-$HOME/.config}/k9s/skins"
 mkdir -p "$OUT"
 curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL https://github.com/catppuccin/k9s/archive/main.tar.gz \
     | tar xz -C "$OUT" --strip-components=2 k9s-main/dist
-yq -i ".k9s.ui.skin = \"$THEME\"" "$CONFIG_FILE"
+yq -y -i ".k9s.ui.skin = \"$THEME\"" "$CONFIG_FILE"
 
 echo "[CHECKED ✅] k9s theme configured!"
