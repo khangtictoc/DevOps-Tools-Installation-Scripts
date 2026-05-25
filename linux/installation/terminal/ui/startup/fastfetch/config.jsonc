@@ -4,7 +4,8 @@
     "color": {
       "keys": "blue",
       "title": "blue"
-    }
+    },
+    "brightColor": true
   },
   "logo": {
     "color": {
@@ -14,19 +15,61 @@
   "modules": [
     "title",
     "separator",
-    "os",
-    "host",
-    "kernel",
-    "uptime",
-    "shell",
-    "display",
-    "icons",
-    "cpu",
-    "gpu",
-    "memory",
-    "swap",
-    "disk",
-    "localip",
-    "battery"
+    {
+      "type": "os",
+      "key": "󰈀 OS"
+    },
+    {
+      "type": "host",
+      "key": "󰟀 Host"
+    },
+    {
+      "type": "kernel",
+      "key": "󰈀 Kernel"
+    },
+    {
+      "type": "uptime",
+      "key": "󰈀 Uptime"
+    },
+    {
+      "type": "shell",
+      "key": "󰈀 Shell"
+    },
+    {
+      "type": "display",
+      "key": "󰍹 Display"
+    },
+    {
+      "type": "icons",
+      "key": "󰀻 Icons"
+    },
+    {
+      "type": "cpu",
+      "key": "󰈀 CPU"
+    },
+    {
+      "type": "gpu",
+      "key": "󰢮 GPU"
+    },
+    {
+      "type": "memory",
+      "key": "󰍛 Memory"
+    },
+    {
+      "type": "swap",
+      "key": "󰓡 Swap"
+    },
+    {
+      "type": "disk",
+      "key": "󰈀 Disk"
+    },
+    {
+      "type": "localip",
+      "key": "󰈀 Local IP"
+    },
+    {
+      "type": "battery",
+      "key": "󰈀 Battery"
+    }
   ]
 }
