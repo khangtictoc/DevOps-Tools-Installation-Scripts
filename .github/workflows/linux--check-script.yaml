@@ -375,7 +375,13 @@ jobs:
     needs: verify-configuration
     steps:
       - name: Remove existing installation
-        run: sudo apt-get remove -y mssql-tools18 2>/dev/null || true; sudo rm -f /opt/mssql-tools18/bin/sqlcmd /usr/local/bin/sqlcmd
+        run: |
+          sudo apt-get remove -y mssql-tools18 2>/dev/null || true
+          sudo rm -f /opt/mssql-tools18/bin/sqlcmd /usr/local/bin/sqlcmd
+          sudo rm -f /etc/apt/sources.list.d/mssql-release.list
+          sudo rm -f /etc/apt/trusted.gpg.d/microsoft.asc
+          sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
+          sudo rm -f /usr/share/keyrings/microsoft-prod.gpg
       - name: Execute Installation
         run: |
           curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/sqlcmd.sh | SHELLRC_FILE="$HOME/.${{ github.event.inputs.shell_type }}rc" bash
@@ -552,7 +558,7 @@ jobs:
         tufw-install,
         vagrant-install,
         velero_cli-install,
-        yq-install,
+        yq-install
       ]
     steps:
       - name: Summary Result

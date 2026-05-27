@@ -22,11 +22,6 @@ if ! command -v dive &>/dev/null; then
         sudo dpkg -i "dive_${DIVE_VERSION}_${OS}_${ARCH}.deb"
         clean_up
     fi
-            ;;
-        *)
-            echo "[ERROR] Unsupported OS"; exit 1
-            ;;
-    esac
 
     if ! command -v dive &>/dev/null; then
         echo "[FAIL ❌] dive installation failed!"

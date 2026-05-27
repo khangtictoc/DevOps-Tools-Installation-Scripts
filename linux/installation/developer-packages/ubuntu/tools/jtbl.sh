@@ -16,7 +16,6 @@ if ! command -v jtbl &>/dev/null; then
     if [[ "$PKG_MGMT" == "brew" ]]; then
         brew install jtbl
     else
-        local jtbl_arch
         case "$ARCH" in
             amd64) jtbl_arch="x86_64"  ;;
             arm64) jtbl_arch="aarch64" ;;
@@ -29,11 +28,6 @@ if ! command -v jtbl &>/dev/null; then
         sudo mv jtbl /usr/local/bin/jtbl
         clean_up
     fi
-            ;;
-        *)
-            echo "[ERROR] Unsupported OS"; exit 1
-            ;;
-    esac
 
     if ! command -v jtbl &>/dev/null; then
         echo "[FAIL ❌] jtbl installation failed!"

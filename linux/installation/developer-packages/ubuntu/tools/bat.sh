@@ -21,11 +21,6 @@ if ! command -v bat &>/dev/null; then
         sudo dpkg -i "bat_${BAT_VERSION}_${ARCH}.deb"
         clean_up
     fi
-            ;;
-        *)
-            echo "[ERROR] Unsupported OS"; exit 1
-            ;;
-    esac
 
     if ! command -v bat &>/dev/null; then
         echo "[FAIL ❌] bat installation failed!"
