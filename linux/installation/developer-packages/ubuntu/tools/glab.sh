@@ -21,11 +21,6 @@ if ! command -v glab &>/dev/null; then
         sudo dpkg -i "glab_${GLAB_VERSION}_${OS}_${ARCH}.deb"
         clean_up
     fi
-            ;;
-        *)
-            echo "[ERROR] Unsupported OS"; exit 1
-            ;;
-    esac
 
     if ! command -v glab &>/dev/null; then
         echo "[FAIL ❌] glab installation failed!"
