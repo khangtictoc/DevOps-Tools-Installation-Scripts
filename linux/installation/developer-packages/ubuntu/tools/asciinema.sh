@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
+
 ASCIINEMA_VERSION="v3.0.1"
 
 detect_asciinema_binary() {
-    case "$(uname -s)" in
-        Darwin) os="apple-darwin" ;;
-        Linux)  os="unknown-linux-musl" ;;
-        *) echo "[ERROR] Unsupported OS"; exit 1 ;;
+    local asciinema_os asciinema_arch
+    case "$OS" in
+        darwin) asciinema_os="apple-darwin" ;;
+        linux)  asciinema_os="unknown-linux-musl" ;;
     esac
-
-    case "$(uname -m)" in
-        x86_64)          arch="x86_64"  ;;
-        arm64 | aarch64) arch="aarch64" ;;
-        *) echo "[ERROR] Unsupported architecture"; exit 1 ;;
+    case "$ARCH" in
+        amd64) asciinema_arch="x86_64"  ;;
+        arm64) asciinema_arch="aarch64" ;;
     esac
-
-    echo "asciinema-${arch}-${os}"
+    echo "asciinema-${asciinema_arch}-${asciinema_os}"
 }
 
 if ! command -v asciinema &>/dev/null; then

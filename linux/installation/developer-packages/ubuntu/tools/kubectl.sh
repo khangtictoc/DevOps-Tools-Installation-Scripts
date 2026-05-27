@@ -1,30 +1,21 @@
 #!/usr/bin/env bash
 
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
+
 if ! command -v kubectl &>/dev/null; then
     echo "[INSTALLING ⬇️] kubectl"
 
-    case "$(uname -s)" in
-        Darwin)
-            brew install kubectl
-            ;;
-        Linux)
-            case "$(uname -m)" in
-                x86_64)          arch="amd64" ;;
-                arm64 | aarch64) arch="arm64" ;;
-                *) echo "[ERROR] Unsupported architecture"; exit 1 ;;
-            esac
+    if [[ "$PKG_MGMT" == "brew" ]]; then
+        brew install kubectl
+    else
+        STABLE=$(curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL https://dl.k8s.io/release/stable.txt)
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://dl.k8s.io/release/${STABLE}/bin/${OS}/${ARCH}/kubectl" -o kubectl
+        sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
-            STABLE=$(curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL https://dl.k8s.io/release/stable.txt)
-            curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://dl.k8s.io/release/${STABLE}/bin/linux/${arch}/kubectl" -o kubectl
-            sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-
-            echo "[INFO] Clean up"
-            rm kubectl
-            ;;
-        *)
-            echo "[ERROR] Unsupported OS"; exit 1
-            ;;
-    esac
+        echo "[INFO] Clean up"
+        rm kubectl
+    fi
 
     if ! command -v kubectl &>/dev/null; then
         echo "[FAIL ❌] kubectl installation failed!"

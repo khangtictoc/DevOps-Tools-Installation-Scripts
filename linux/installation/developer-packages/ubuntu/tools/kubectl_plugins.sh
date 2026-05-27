@@ -2,13 +2,12 @@
 
 # Note: Remember to "export SHELL_PROFILE", e.g. '$HOME/.zshrc' or '$HOME/.bashrc'
 
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
+
 # --- Install Krew -----------------------------------------------
 
 if ! kubectl krew version &>/dev/null; then
-
-    echo "[INFO] Determining system info..."
-    OS="$(uname | tr '[:upper:]' '[:lower:]')"
-    ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')"
 
     KREW="krew-${OS}_${ARCH}"
 

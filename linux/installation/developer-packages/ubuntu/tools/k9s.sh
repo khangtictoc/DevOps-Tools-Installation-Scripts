@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
+
 K9S_VERSION="0.32.7"
 THEME="catppuccin-mocha"
 CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/k9s/config.yaml"
@@ -8,28 +11,16 @@ CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/k9s/config.yaml"
 if ! command -v k9s &>/dev/null; then
     echo "[INSTALLING ⬇️] k9s v${K9S_VERSION}"
 
-    case "$(uname -s)" in
-        Darwin)
-            brew install derailed/k9s/k9s
-            ;;
-        Linux)
-            case "$(uname -m)" in
-                x86_64)          arch="amd64" ;;
-                arm64 | aarch64) arch="arm64" ;;
-                *) echo "[ERROR] Unsupported architecture"; exit 1 ;;
-            esac
+    if [[ "$PKG_MGMT" == "brew" ]]; then
+        brew install derailed/k9s/k9s
+    else
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_${OS}_${ARCH}.deb" \
+            -o "k9s_${OS}_${ARCH}.deb"
+        sudo dpkg -i "./k9s_${OS}_${ARCH}.deb"
 
-            curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_linux_${arch}.deb" \
-                -o "k9s_linux_${arch}.deb"
-            sudo dpkg -i "./k9s_linux_${arch}.deb"
-
-            echo "[INFO] Clean up"
-            rm "k9s_linux_${arch}.deb"
-            ;;
-        *)
-            echo "[ERROR] Unsupported OS"; exit 1
-            ;;
-    esac
+        echo "[INFO] Clean up"
+        rm "k9s_${OS}_${ARCH}.deb"
+    fi
 
     if ! command -v k9s &>/dev/null; then
         echo "[FAIL ❌] k9s installation failed!"
@@ -43,7 +34,7 @@ fi
 
 # --- Install clipboard tool -------------------------------------
 # macOS has pbcopy built-in; xclip only needed on Linux
-if [[ "$(uname -s)" == "Linux" ]] && ! command -v xclip &>/dev/null; then
+if [[ "$OS" == "linux" ]] && ! command -v xclip &>/dev/null; then
     echo "[INSTALLING ⬇️] xclip"
     sudo apt update
     sudo apt install -y xclip

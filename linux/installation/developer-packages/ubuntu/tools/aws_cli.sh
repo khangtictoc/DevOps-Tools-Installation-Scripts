@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
+
 detect_aws_url() {
-    case "$(uname -s)" in
-        Darwin) os="macos" ;;
-        Linux)  os="linux" ;;
-        *) echo "[ERROR] Unsupported OS"; exit 1 ;;
+    local aws_os aws_arch
+    case "$OS" in
+        darwin) aws_os="macos" ;;
+        linux)  aws_os="linux" ;;
     esac
-
-    case "$(uname -m)" in
-        x86_64)          arch="x86_64"  ;;
-        arm64 | aarch64) arch="aarch64" ;;
-        *) echo "[ERROR] Unsupported architecture"; exit 1 ;;
+    case "$ARCH" in
+        amd64) aws_arch="x86_64"  ;;
+        arm64) aws_arch="aarch64" ;;
     esac
-
-    echo "https://awscli.amazonaws.com/awscli-exe-${os}-${arch}.zip"
+    echo "https://awscli.amazonaws.com/awscli-exe-${aws_os}-${aws_arch}.zip"
 }
 
 if ! command -v aws &>/dev/null; then
