@@ -24,11 +24,6 @@ if ! command -v kubesec &>/dev/null; then
         sudo chmod +x /usr/local/bin/kubesec
         clean_up
     fi
-            ;;
-        *)
-            echo "[ERROR] Unsupported OS"; exit 1
-            ;;
-    esac
 
     if ! command -v kubesec &>/dev/null; then
         echo "[FAIL ❌] kubesec installation failed!"

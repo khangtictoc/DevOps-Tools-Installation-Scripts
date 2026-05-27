@@ -23,11 +23,6 @@ if ! command -v kube-linter &>/dev/null; then
         sudo chmod +x /usr/local/bin/kube-linter
         clean_up
     fi
-            ;;
-        *)
-            echo "[ERROR] Unsupported OS"; exit 1
-            ;;
-    esac
 
     if ! command -v kube-linter &>/dev/null; then
         echo "[FAIL ❌] kube-linter installation failed!"
