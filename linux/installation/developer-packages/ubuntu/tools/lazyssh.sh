@@ -6,6 +6,7 @@ detect_os
 clean_up() {
     echo "[INFO] Clean up"
     rm -f "$TARBALL"
+    rm -f LICENSE README.md
 }
 
 detect_lazyssh_platform() {
