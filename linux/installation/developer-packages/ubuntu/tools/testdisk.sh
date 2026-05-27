@@ -1,4 +1,7 @@
-#! /bin/bash
+#!/usr/bin/env bash
+
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
 
 TESTDISK_VERSION="7.3"
 
@@ -10,18 +13,9 @@ DIR_LINUX="testdisk-${TESTDISK_VERSION}-WIP"
 URL_MAC="https://www.cgsecurity.org/testdisk-${TESTDISK_VERSION}.mac_intel_x86_64.tar.bz2"
 DIR_MAC="testdisk-${TESTDISK_VERSION}"
 
-detect_os() {
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "macOS"
-  elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    if grep -qi ubuntu /etc/os-release 2>/dev/null; then
-      echo "Ubuntu"
-    else
-      echo "Linux"
-    fi
-  else
-    echo "Unknown"
-  fi
+clean_up() {
+  echo "[INFO] Clean up"
+  rm -f "$archive"
 }
 
 main_install() {
@@ -42,7 +36,7 @@ main_install() {
   echo "--- Creating Wrapper Scripts ---"
   
   local suffix=""
-  [[ "$OS" == "Ubuntu" ]] && suffix="_static"
+  [[ "$OS" == "linux" ]] && suffix="_static"
 
   # Tạo hàm helper để viết wrapper
   create_wrapper() {
@@ -61,19 +55,16 @@ EOF
   create_wrapper "photorec" "photorec$suffix"
   create_wrapper "fidentify" "fidentify$suffix"
 
-  echo "--- Cleaning up archive ---"
-  rm -f "$archive"
+  clean_up
 }
-
-OS=$(detect_os)
 
 if ! command -v testdisk &>/dev/null; then
   case "$OS" in
-  Ubuntu)
-    echo "✓ Detected Ubuntu - Installing Linux binaries..."
+  linux)
+    echo "✓ Detected Linux - Installing Linux binaries..."
     main_install "$URL_LINUX" "$DIR_LINUX"
     ;;
-  macOS)
+  darwin)
     echo "✓ Detected macOS - Installing Mac Intel binaries..."
     main_install "$URL_MAC" "$DIR_MAC"
     ;;
@@ -85,7 +76,7 @@ if ! command -v testdisk &>/dev/null; then
 
   # Kiểm tra kết quả cuối cùng
   if testdisk -v &>/dev/null; then
-    echo "[CHECKED ✅] testdisk, photorec, and fidentify installed successfully on $OS!"
+    echo "[CHECKED ✅] testdisk, photorec, and fidentify installed successfully!"
   else
     echo "[FAIL ❌] Installation failed at verification step!"
     exit 1

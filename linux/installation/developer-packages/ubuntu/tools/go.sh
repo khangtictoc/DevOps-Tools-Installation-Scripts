@@ -1,26 +1,18 @@
 #!/usr/bin/env bash
 
-GO_VERSION="1.24.5"
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
 
-detect_go_platform() {
-    case "$(uname -s)" in
-        Darwin) os="darwin" ;;
-        Linux)  os="linux"  ;;
-        *) echo "[ERROR] Unsupported OS"; exit 1 ;;
-    esac
-
-    case "$(uname -m)" in
-        x86_64)          arch="amd64" ;;
-        arm64 | aarch64) arch="arm64" ;;
-        *) echo "[ERROR] Unsupported architecture"; exit 1 ;;
-    esac
-
-    echo "go${GO_VERSION}.${os}-${arch}.tar.gz"
+clean_up() {
+    echo "[INFO] Clean up"
+    rm -f "$TARBALL"
 }
+
+GO_VERSION="1.24.5"
 
 if ! go version &>/dev/null; then
     echo "[INSTALLING ⬇️] Go ${GO_VERSION}"
-    TARBALL=$(detect_go_platform)
+    TARBALL="go${GO_VERSION}.${OS}-${ARCH}.tar.gz"
 
     curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://go.dev/dl/${TARBALL}" -o "$TARBALL"
 
@@ -29,9 +21,7 @@ if ! go version &>/dev/null; then
 
     sudo ln -sf /usr/local/go/bin/go /usr/local/bin/go
     sudo ln -sf /usr/local/go/bin/gofmt /usr/local/bin/gofmt
-
-    echo "[INFO] Clean up"
-    rm -f "$TARBALL"
+    clean_up
 
     export GOROOT=/usr/local/go
 

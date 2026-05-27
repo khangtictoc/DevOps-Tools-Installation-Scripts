@@ -3,8 +3,16 @@
 # perf - Linux profiling with performance counters
 # WSL install reference: https://github.com/microsoft/WSL2-Linux-Kernel/tree/linux-msft-wsl-6.6.y
 
-if [[ "$(uname -s)" != "Linux" ]]; then
-    echo "[SKIP] perf is Linux-only. Skipping on $(uname -s)."
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
+
+clean_up() {
+    echo "[INFO] Clean up"
+    rm -rf ~/WSL2-Linux-Kernel
+}
+
+if [[ "$OS" != "linux" ]]; then
+    echo "[SKIP] perf is Linux-only. Skipping on $OS."
     exit 0
 fi
 
@@ -39,8 +47,7 @@ if ! perf -h &>/dev/null; then
             sudo cp perf /usr/bin/
         )
 
-        echo "[INFO] Clean up"
-        rm -rf ~/WSL2-Linux-Kernel
+        clean_up
 
     else
         echo "[INFO] Non-WSL Linux detected. Installing perf via apt..."

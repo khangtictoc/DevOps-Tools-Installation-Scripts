@@ -3,6 +3,11 @@
 source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
 detect_os
 
+clean_up() {
+    echo "[INFO] Clean up"
+    rm -f asciinema
+}
+
 ASCIINEMA_VERSION="v3.0.1"
 
 detect_asciinema_binary() {
@@ -24,8 +29,7 @@ if ! command -v asciinema &>/dev/null; then
         "https://github.com/asciinema/asciinema/releases/download/${ASCIINEMA_VERSION}/${BINARY}" \
         -o asciinema
     sudo install asciinema /usr/local/bin/asciinema
-    rm asciinema
-    echo "[INFO] Clean up"
+    clean_up
 
     if ! command -v asciinema &>/dev/null; then
         echo "[FAIL ❌] asciinema installation failed!"

@@ -1,23 +1,26 @@
 #!/usr/bin/env bash
 
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
+
+clean_up() {
+    echo "[INFO] Clean up"
+    rm -f "$INSTALLER"
+}
+
 ANACONDA_VERSION="2025.06-0"
 
 detect_anaconda_platform() {
-    local os arch
-
-    case "$(uname -s)" in
-        Darwin) os="MacOSX" ;;
-        Linux)  os="Linux"  ;;
-        *) echo "[ERROR] Unsupported OS"; exit 1 ;;
+    local anaconda_os anaconda_arch
+    case "$OS" in
+        darwin) anaconda_os="MacOSX" ;;
+        linux)  anaconda_os="Linux"  ;;
     esac
-
-    case "$(uname -m)" in
-        x86_64)          arch="x86_64"  ;;
-        arm64 | aarch64) arch="aarch64" ;;
-        *) echo "[ERROR] Unsupported architecture"; exit 1 ;;
+    case "$ARCH" in
+        amd64) anaconda_arch="x86_64"  ;;
+        arm64) anaconda_arch="aarch64" ;;
     esac
-
-    echo "Anaconda3-${ANACONDA_VERSION}-${os}-${arch}.sh"
+    echo "Anaconda3-${ANACONDA_VERSION}-${anaconda_os}-${anaconda_arch}.sh"
 }
 
 if ! command -v conda &>/dev/null; then
@@ -32,9 +35,7 @@ yes
 
 yes
 EOF
-
-    echo "[INFO] >>>> Clean Up"
-    rm "$INSTALLER"
+    clean_up
 
     echo "[CHECKED ✅] Anaconda installed! Try 'conda -h'"
 else

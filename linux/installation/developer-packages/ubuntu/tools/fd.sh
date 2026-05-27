@@ -1,7 +1,6 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
-if ! command -v fd 2>&1 >/dev/null
-then
+if ! command -v fd &>/dev/null; then
     sudo apt-get -y install fd-find
     ln -s $(which fdfind) ~/.local/bin/fd
 

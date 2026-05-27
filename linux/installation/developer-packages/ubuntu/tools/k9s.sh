@@ -3,6 +3,11 @@
 source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
 detect_os
 
+clean_up() {
+    echo "[INFO] Clean up"
+    rm -f "k9s_${OS}_${ARCH}.deb"
+}
+
 K9S_VERSION="0.32.7"
 THEME="catppuccin-mocha"
 CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/k9s/config.yaml"
@@ -17,9 +22,7 @@ if ! command -v k9s &>/dev/null; then
         curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_${OS}_${ARCH}.deb" \
             -o "k9s_${OS}_${ARCH}.deb"
         sudo dpkg -i "./k9s_${OS}_${ARCH}.deb"
-
-        echo "[INFO] Clean up"
-        rm "k9s_${OS}_${ARCH}.deb"
+        clean_up
     fi
 
     if ! command -v k9s &>/dev/null; then

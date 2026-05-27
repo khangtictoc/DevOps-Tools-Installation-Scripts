@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
+
+clean_up() {
+    echo "[INFO] Clean up"
+    rm -f "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+}
+
 MAVEN_VERSION="3.9.13"
 
 if ! mvn --version &>/dev/null; then
@@ -11,8 +19,7 @@ if ! mvn --version &>/dev/null; then
     sudo mv "apache-maven-${MAVEN_VERSION}" /opt/maven
     sudo ln -sf /opt/maven/bin/mvn /usr/local/bin/mvn
 
-    # JAVA_HOME: macOS and Ubuntu resolve differently
-    if [[ "$(uname -s)" == "Darwin" ]]; then
+    if [[ "$OS" == "darwin" ]]; then
         export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null)
     else
         export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
@@ -20,9 +27,7 @@ if ! mvn --version &>/dev/null; then
 
     export M2_HOME=/opt/maven
     export PATH="$M2_HOME/bin:$PATH"
-
-    echo "[INFO] Clean up"
-    rm -rf "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+    clean_up
 
     if ! mvn --version &>/dev/null; then
         echo "[FAIL ❌] Maven installation failed!"

@@ -1,4 +1,9 @@
-#! /bin/bash
+#!/usr/bin/env bash
+
+clean_up() {
+    echo "[INFO] Clean up"
+    rm -f Rustnet_LinuxDEB_amd64.deb
+}
 
 RUSTNET_VERSION="v1.3.0"
 
@@ -6,7 +11,7 @@ if ! command -v rustnet 2>&1 >/dev/null
 then
     wget "https://github.com/domcyrus/rustnet/releases/download/${RUSTNET_VERSION}/Rustnet_LinuxDEB_amd64.deb"
     sudo dpkg -i Rustnet_LinuxDEB_amd64.deb
-    rm Rustnet_LinuxDEB_amd64.deb
+    clean_up
 
     if ! command -v rustnet &> /dev/null; then
         echo "[FAIL ❌] rustnet installation failed!"

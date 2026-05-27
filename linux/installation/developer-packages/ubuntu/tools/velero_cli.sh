@@ -3,6 +3,11 @@
 source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
 detect_os
 
+clean_up() {
+    echo "[INFO] Clean up"
+    rm -rf "$TARBALL" "velero-${VELERO_VERSION}-${OS}-${ARCH}"
+}
+
 VELERO_VERSION="v1.17.0"
 
 if ! command -v velero &>/dev/null; then
@@ -13,9 +18,7 @@ if ! command -v velero &>/dev/null; then
         -o "$TARBALL"
     tar -xzf "$TARBALL"
     sudo cp "velero-${VELERO_VERSION}-${OS}-${ARCH}/velero" /usr/local/bin/velero
-
-    echo "[INFO] Clean up"
-    rm -rf "$TARBALL" "velero-${VELERO_VERSION}-${OS}-${ARCH}"
+    clean_up
 
     if ! command -v velero &>/dev/null; then
         echo "[FAIL ❌] velero installation failed!"

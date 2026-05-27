@@ -1,33 +1,15 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
-detect_os() {
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "macOS"
-  elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Check if it's Ubuntu
-    if grep -qi ubuntu /etc/os-release 2>/dev/null; then
-      echo "Ubuntu"
-    else
-      echo "Linux"
-    fi
-  else
-    echo "Unknown"
-  fi
-}
-
-main_install() {
-  sudo apt update
-  sudo apt install -y build-essential libfontconfig1-dev liblzma-dev
-  cargo install binwalk
-}
-
-OS=$(detect_os)
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
 
 if ! command -v binwalk &>/dev/null; then
   case "$OS" in
-  Ubuntu)
-    echo "✓ Detected Ubuntu - Installing 'binwalk' dependencies with Cargo ..."
-    main_install
+  linux)
+    echo "✓ Detected Linux - Installing 'binwalk' dependencies with Cargo ..."
+    sudo apt update
+    sudo apt install -y build-essential libfontconfig1-dev liblzma-dev
+    cargo install binwalk
 
     if ! binwalk -h &>/dev/null; then
       echo "[FAIL ❌] binwalk installation failed!"
@@ -36,8 +18,8 @@ if ! command -v binwalk &>/dev/null; then
 
     echo "[CHECKED ✅] binwalk command installed!"
     ;;
-  macOS)
-    echo "[FAIL ❌] MacOS is not compatible. Binwalk installation failed!"
+  darwin)
+    echo "[FAIL ❌] macOS is not compatible. Binwalk installation failed!"
     exit 1
     ;;
   *)

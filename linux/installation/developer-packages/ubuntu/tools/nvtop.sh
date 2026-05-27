@@ -1,25 +1,22 @@
 #!/usr/bin/env bash
 
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
+
 if ! command -v nvtop &>/dev/null; then
     echo "[INSTALLING ⬇️] nvtop"
 
-    case "$(uname -s)" in
-        Darwin)
-            brew install nvtop
-            ;;
-        Linux)
+    if [[ "$PKG_MGMT" == "brew" ]]; then
+        brew install nvtop
+    else
+        sudo apt update
+        if ! sudo apt install -y nvtop 2>/dev/null; then
+            echo "[INFO] nvtop not found in default repo, adding PPA..."
+            sudo add-apt-repository -y ppa:quentiumyt/nvtop
             sudo apt update
-            if ! sudo apt install -y nvtop 2>/dev/null; then
-                echo "[INFO] nvtop not found in default repo, adding PPA..."
-                sudo add-apt-repository -y ppa:quentiumyt/nvtop
-                sudo apt update
-                sudo apt install -y nvtop
-            fi
-            ;;
-        *)
-            echo "[ERROR] Unsupported OS"; exit 1
-            ;;
-    esac
+            sudo apt install -y nvtop
+        fi
+    fi
 
     if ! command -v nvtop &>/dev/null; then
         echo "[FAIL ❌] nvtop installation failed!"

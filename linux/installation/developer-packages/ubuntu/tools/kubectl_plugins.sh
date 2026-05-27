@@ -5,6 +5,11 @@
 source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
 detect_os
 
+clean_up() {
+    echo "[INFO] Clean up"
+    rm -rf "LICENSE" "${KREW}" "${KREW}.tar.gz"
+}
+
 # --- Install Krew -----------------------------------------------
 
 if ! kubectl krew version &>/dev/null; then
@@ -16,9 +21,7 @@ if ! kubectl krew version &>/dev/null; then
         -o "${KREW}.tar.gz"
     tar zxf "${KREW}.tar.gz"
     ./"${KREW}" install krew
-
-    echo "[INFO] Clean up"
-    rm -rf "LICENSE" "${KREW}" "${KREW}.tar.gz"
+    clean_up
 
     echo "[INFO] Adding Krew to PATH..."
     EXPORT_KREW_PATH='export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"'
