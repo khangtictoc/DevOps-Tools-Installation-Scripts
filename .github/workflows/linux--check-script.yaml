@@ -462,6 +462,47 @@ jobs:
         run: |
           curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/yq.sh | bash
 
+  binwalk-install:
+    runs-on: ubuntu-22.04
+    needs: verify-configuration
+    steps:
+      - name: Remove existing installation
+        run: cargo uninstall binwalk 2>/dev/null || true; sudo rm -f /usr/local/bin/binwalk /usr/bin/binwalk
+      - name: Execute Installation
+        run: |
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/binwalk.sh | bash
+
+  fd-install:
+    runs-on: ubuntu-22.04
+    needs: verify-configuration
+    steps:
+      - name: Remove existing installation
+        run: sudo apt-get remove -y fd-find 2>/dev/null || true; rm -f ~/.local/bin/fd
+      - name: Execute Installation
+        run: |
+          mkdir -p ~/.local/bin
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/fd.sh | bash
+
+  rustnet-install:
+    runs-on: ubuntu-22.04
+    needs: verify-configuration
+    steps:
+      - name: Remove existing installation
+        run: sudo apt-get remove -y rustnet 2>/dev/null || true; sudo rm -f /usr/local/bin/rustnet /usr/bin/rustnet
+      - name: Execute Installation
+        run: |
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/rustnet.sh | bash
+
+  testdisk-install:
+    runs-on: ubuntu-22.04
+    needs: verify-configuration
+    steps:
+      - name: Remove existing installation
+        run: sudo rm -f /usr/local/bin/testdisk /usr/local/bin/photorec /usr/local/bin/fidentify; sudo rm -rf /opt/testdisk_tools
+      - name: Execute Installation
+        run: |
+          curl -sS --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120  https://raw.githubusercontent.com/khangtictoc/$REPO_NAME/refs/heads/${{ github.event.inputs.branch }}/linux/installation/developer-packages/ubuntu/tools/testdisk.sh | bash
+
   summary-results:
     runs-on: ubuntu-22.04
     if: always()
@@ -475,9 +516,11 @@ jobs:
         aws_cli-install,
         az_cli-install,
         bat-install,
+        binwalk-install,
         detect_secrets-install,
         dive-install,
         docker-install,
+        fd-install,
         gcp_cli-install,
         git_filter_repo-install,
         glab-install,
@@ -499,11 +542,13 @@ jobs:
         packer-install,
         perf-install,
         ruby-install,
+        rustnet-install,
         sqlcmd-install,
         sysz-install,
         taws-install,
         terraform-install,
         terragrunt-install,
+        testdisk-install,
         tufw-install,
         vagrant-install,
         velero_cli-install,
