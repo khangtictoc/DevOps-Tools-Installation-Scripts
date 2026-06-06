@@ -31,18 +31,18 @@
       "type": "uptime",
       "key": "󰈀 Uptime"
     },
-    {
-      "type": "shell",
-      "key": "󰈀 Shell"
-    },
+    // {
+    //   "type": "shell",
+    //   "key": "󰈀 Shell"
+    // },
     {
       "type": "display",
       "key": "󰍹 Display"
     },
-    {
-      "type": "icons",
-      "key": "󰀻 Icons"
-    },
+    // {
+    //   "type": "icons",
+    //   "key": "󰀻 Icons"
+    // },
     {
       "type": "cpu",
       "key": "󰈀 CPU"
