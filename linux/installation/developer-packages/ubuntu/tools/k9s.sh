@@ -55,8 +55,19 @@ fi
 echo "[INFO] Configuring k9s theme: ${THEME}"
 OUT="${XDG_CONFIG_HOME:-$HOME/.config}/k9s/skins"
 mkdir -p "$OUT"
+mkdir -p "$(dirname "$CONFIG_FILE")"
+if [ ! -f "$CONFIG_FILE" ]; then
+    touch "$CONFIG_FILE"
+fi
+
 curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL https://github.com/catppuccin/k9s/archive/main.tar.gz \
     | tar xz -C "$OUT" --strip-components=2 k9s-main/dist
-yq -y -i ".k9s.ui.skin = \"$THEME\"" "$CONFIG_FILE"
+
+# Curl on MacOS and Linux are different
+if yq --help 2>&1 | grep -qE '(^|[[:space:]-])(eval|e)\b'; then
+    yq eval -i ".k9s.ui.skin = \"$THEME\"" "$CONFIG_FILE"
+else
+    yq -y -i ".k9s.ui.skin = \"$THEME\"" "$CONFIG_FILE"
+fi
 
 echo "[CHECKED ✅] k9s theme configured!"

@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
 
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
+detect_os
+
 if ! command -v fd &>/dev/null; then
-    sudo apt-get -y install fd-find
-    ln -s $(which fdfind) ~/.local/bin/fd
+    echo "[INSTALLING ⬇️] fd"
+
+    if [[ "$PKG_MGMT" == "brew" ]]; then
+        brew install fd
+    else
+        sudo apt-get -y install fd-find
+        mkdir -p "$HOME/.local/bin"
+        ln -sf "$(which fdfind)" "$HOME/.local/bin/fd"
+    fi
 
     if ! command -v fd &> /dev/null; then
         echo "[FAIL ❌] fd installation failed!"
