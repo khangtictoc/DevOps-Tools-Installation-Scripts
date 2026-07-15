@@ -6,6 +6,7 @@ detect_os
 clean_up() {
     echo "[INFO] Clean up"
     rm -f awscliv2.zip
+    rm -f AWSCLIV2.pkg
     rm -rf aws
 }
 
@@ -24,12 +25,20 @@ detect_aws_url() {
 
 if ! command -v aws &>/dev/null; then
     echo "[INSTALLING ⬇️] AWS CLI"
-    URL=$(detect_aws_url)
+    if [ "$OS" = "darwin" ]; then
+        # Use the official macOS installer package for AWS CLI v2
+        URL="https://awscli.amazonaws.com/AWSCLIV2.pkg"
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "$URL" -o AWSCLIV2.pkg
+        sudo installer -pkg AWSCLIV2.pkg -target /
+        rm -f AWSCLIV2.pkg
+    else
+        URL=$(detect_aws_url)
 
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "$URL" -o awscliv2.zip
-    unzip awscliv2.zip
-    sudo ./aws/install
-    clean_up
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "$URL" -o awscliv2.zip
+        unzip awscliv2.zip
+        sudo ./aws/install
+        clean_up
+    fi
 
     if ! command -v aws &>/dev/null; then
         echo "[FAIL ❌] aws installation failed!"
