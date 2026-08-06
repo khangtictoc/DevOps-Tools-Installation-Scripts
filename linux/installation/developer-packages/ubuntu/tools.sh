@@ -31,12 +31,14 @@ sudo add-apt-repository ppa:wslutilities/wslu
 sudo apt update
 sudo apt install -y wslu
 
-# --- FILE ---
+# --- FILE MANAGER/EDITOR ---
 sudo apt install -y vim
 sudo apt install -y nano
 
-## Superfile - File Manager
+## Superfile
 bash -c "$(curl -sLo- https://superfile.netlify.app/install.sh)"
+## Yazi 
+bash -c "$(curl -sLo- https://superfile.dev/install.sh)"
 
 ## ls_extended - Extended 'ls' command
 curl -sS https://raw.githubusercontent.com/khangtictoc/DevOps-Tools-Installation-Scripts/refs/heads/main/linux/installation/developer-packages/ubuntu/tools/ls_extended.sh | bash
