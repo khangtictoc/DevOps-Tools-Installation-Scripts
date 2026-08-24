@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/get_os.sh")
-get_os
 
 clean_up() {
     echo "[INFO] Clean up"
@@ -29,7 +28,7 @@ detect_aws_url() {
 
 install_ssm() {
     echo "[INSTALLING PLUGIN] SSM (Session Manager)"
-    curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
     sudo dpkg -i session-manager-plugin.deb
 
     if ! command -v session-manager-plugin &>/dev/null; then
@@ -56,6 +55,9 @@ if ! command -v aws &>/dev/null; then
         URL=$(detect_aws_url)
 
         curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "$URL" -o awscliv2.zip
+
+        echo "[INFO ℹ️] Extracting zipped files"
+
         unzip -q awscliv2.zip
         sudo ./aws/install
         clean_up
