@@ -4,7 +4,6 @@
 # WSL install reference: https://github.com/microsoft/WSL2-Linux-Kernel/tree/linux-msft-wsl-6.6.y
 
 source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/get_os.sh")
-get_os
 
 clean_up() {
     echo "[INFO] Clean up"

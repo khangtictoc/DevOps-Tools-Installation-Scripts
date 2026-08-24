@@ -3,7 +3,6 @@
 # Note: Available script provided by Official Docker at: https://get.docker.com does not support old Ubuntu. This script is better.
 
 source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/get_os.sh")
-get_os
 
 if ! command -v docker &>/dev/null; then
     echo "[INSTALLING ⬇️] Docker"

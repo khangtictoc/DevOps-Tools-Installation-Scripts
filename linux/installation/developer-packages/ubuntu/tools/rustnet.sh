@@ -2,7 +2,6 @@
 set -euo pipefail
 
 source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/get_os.sh")
-get_os
 
 RUSTNET_VERSION="v1.3.0"
 

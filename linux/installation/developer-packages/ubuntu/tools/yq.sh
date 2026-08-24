@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/get_os.sh")
-get_os
 
 YQ_VERSION="v4.46.1"
 YQ_BINARY="yq_${OS}_${ARCH}"
