@@ -2,8 +2,8 @@
 
 # Note: Remember to "export SHELLRC_FILE", e.g. '$HOME/.zshrc' or '$HOME/.bashrc'
 
-source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
-detect_os
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/get_os.sh")
+get_os
 
 if ! command -v sqlcmd &>/dev/null; then
     echo "[INSTALLING ⬇️] SQL Server Command Line Tools"

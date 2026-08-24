@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-rc_file=$(curl -sS https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/get_shell_startup_filename.sh | bash)
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/get_shell_filerc_path.sh")
 
 if command -v apt >/dev/null 2>&1; then
     echo "[CHECKED ✅] apt found."

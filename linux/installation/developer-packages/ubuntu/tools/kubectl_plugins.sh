@@ -2,8 +2,8 @@
 
 # Note: Remember to "export SHELL_PROFILE", e.g. '$HOME/.zshrc' or '$HOME/.bashrc'
 
-source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/detect_os.sh")
-detect_os
+source <(curl -sS "https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/get_os.sh")
+get_os
 
 clean_up() {
     echo "[INFO] Clean up"
