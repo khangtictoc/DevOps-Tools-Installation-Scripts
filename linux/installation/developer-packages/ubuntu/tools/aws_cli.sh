@@ -7,6 +7,7 @@ clean_up() {
     rm -f awscliv2.zip
     rm -f AWSCLIV2.pkg
     rm -rf aws
+    rm session-manager-plugin.deb
 }
 
 detect_aws_url() {
@@ -43,34 +44,37 @@ install_plugin() {
     install_ssm
 }
 
-if ! command -v aws &>/dev/null; then
-    echo "[INSTALLING ⬇️] AWS CLI"
-    if [ "$OS" = "darwin" ]; then
-        # Use the official macOS installer package for AWS CLI v2
-        URL="https://awscli.amazonaws.com/AWSCLIV2.pkg"
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "$URL" -o AWSCLIV2.pkg
-        sudo installer -pkg AWSCLIV2.pkg -target /
-        rm -f AWSCLIV2.pkg
-    else
-        URL=$(detect_aws_url)
-
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "$URL" -o awscliv2.zip
-
-        echo "[INFO ℹ️] Extracting zipped files"
-
-        unzip -q awscliv2.zip
-        sudo ./aws/install
-        clean_up
-    fi
-
+install_main() {
     if ! command -v aws &>/dev/null; then
-        echo "[FAIL ❌] aws installation failed!"
-        exit 1
+        echo "[INSTALLING ⬇️] AWS CLI"
+        if [ "$OS" = "darwin" ]; then
+            # Use the official macOS installer package for AWS CLI v2
+            URL="https://awscli.amazonaws.com/AWSCLIV2.pkg"
+            curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "$URL" -o AWSCLIV2.pkg
+            sudo installer -pkg AWSCLIV2.pkg -target /
+            rm -f AWSCLIV2.pkg
+        else
+            URL=$(detect_aws_url)
+
+            curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "$URL" -o awscliv2.zip
+
+            echo "[INFO ℹ️] Extracting zipped files"
+
+            unzip -q awscliv2.zip
+            sudo ./aws/install
+        fi
+
+        if ! command -v aws &>/dev/null; then
+            echo "[FAIL ❌] aws installation failed!"
+            exit 1
+        fi
+
+        echo "[CHECKED ✅] aws command installed!"
+    else
+        echo "[CHECKED ✅] aws command exists!"
     fi
+}
 
-    echo "[CHECKED ✅] aws command installed!"
-else
-    echo "[CHECKED ✅] aws command exists!"
-fi
-
+install_main
 install_plugin
+clean_up
