@@ -7,7 +7,7 @@ clean_up() {
     rm -f awscliv2.zip
     rm -f AWSCLIV2.pkg
     rm -rf aws
-    rm session-manager-plugin.deb
+    rm -f session-manager-plugin.deb
 }
 
 detect_aws_url() {
