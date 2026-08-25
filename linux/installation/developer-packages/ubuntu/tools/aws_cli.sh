@@ -30,7 +30,7 @@ detect_aws_url() {
 install_ssm() {
     if ! command -v session-manager-plugin &>/dev/null; then
         echo "[INSTALLING PLUGIN] SSM (Session Manager)"
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+        curl -fsSL "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
         sudo dpkg -i session-manager-plugin.deb
 
         if ! command -v session-manager-plugin &>/dev/null; then
