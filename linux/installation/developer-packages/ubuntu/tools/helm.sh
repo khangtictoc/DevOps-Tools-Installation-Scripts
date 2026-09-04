@@ -8,7 +8,7 @@ clean_up() {
     rm -rf "$PLATFORM"
 }
 
-HELM_VERSION="3.16.4"
+HELM_VERSION="4.2.4"
 
 if ! command -v helm &>/dev/null; then
     echo "[INSTALLING ⬇️] Helm v${HELM_VERSION}"
