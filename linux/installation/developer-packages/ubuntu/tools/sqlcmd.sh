@@ -13,9 +13,9 @@ if ! command -v sqlcmd &>/dev/null; then
         HOMEBREW_ACCEPT_EULA=Y brew install mssql-tools18 msodbcsql18
     else
         source /etc/os-release
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL https://packages.microsoft.com/keys/microsoft.asc \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL https://packages.microsoft.com/keys/microsoft.asc \
             | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc >/dev/null
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://packages.microsoft.com/config/ubuntu/${VERSION_ID}/prod.list" \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://packages.microsoft.com/config/ubuntu/${VERSION_ID}/prod.list" \
             | sudo tee /etc/apt/sources.list.d/mssql-release.list >/dev/null
         sudo apt-get update
         sudo apt-get install -y mssql-tools18 unixodbc-dev

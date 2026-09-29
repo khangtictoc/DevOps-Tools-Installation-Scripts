@@ -15,7 +15,7 @@ if ! command -v glab &>/dev/null; then
     if [[ "$PKG_MGMT" == "brew" ]]; then
         brew install glab
     else
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://gitlab.com/gitlab-org/cli/-/releases/v${GLAB_VERSION}/downloads/glab_${GLAB_VERSION}_${OS}_${ARCH}.deb" \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://gitlab.com/gitlab-org/cli/-/releases/v${GLAB_VERSION}/downloads/glab_${GLAB_VERSION}_${OS}_${ARCH}.deb" \
             -o "glab_${GLAB_VERSION}_${OS}_${ARCH}.deb"
         sudo dpkg -i "glab_${GLAB_VERSION}_${OS}_${ARCH}.deb"
         clean_up

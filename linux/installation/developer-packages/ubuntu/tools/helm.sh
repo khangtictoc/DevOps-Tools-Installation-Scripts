@@ -15,7 +15,7 @@ if ! command -v helm &>/dev/null; then
     PLATFORM="${OS}-${ARCH}"
     TARBALL="helm-v${HELM_VERSION}-${PLATFORM}.tar.gz"
 
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://get.helm.sh/${TARBALL}" -o "$TARBALL"
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://get.helm.sh/${TARBALL}" -o "$TARBALL"
     tar -zxf "$TARBALL"
     sudo mv "${PLATFORM}/helm" /usr/local/bin/helm
     clean_up

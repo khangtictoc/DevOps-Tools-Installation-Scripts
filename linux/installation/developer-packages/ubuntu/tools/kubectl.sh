@@ -13,8 +13,8 @@ if ! command -v kubectl &>/dev/null; then
     if [[ "$PKG_MGMT" == "brew" ]]; then
         brew install kubectl
     else
-        STABLE=$(curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL https://dl.k8s.io/release/stable.txt)
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://dl.k8s.io/release/${STABLE}/bin/${OS}/${ARCH}/kubectl" -o kubectl
+        STABLE=$(curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL https://dl.k8s.io/release/stable.txt)
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://dl.k8s.io/release/${STABLE}/bin/${OS}/${ARCH}/kubectl" -o kubectl
         sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
         clean_up
     fi

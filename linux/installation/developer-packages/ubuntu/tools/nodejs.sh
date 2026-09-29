@@ -9,7 +9,7 @@ if ! command -v node &>/dev/null; then
     export NVM_DIR="$HOME/.nvm"
     unset XDG_CONFIG_HOME
 
-    curl -fsSL --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 \
+    curl -fsSL --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 \
         https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

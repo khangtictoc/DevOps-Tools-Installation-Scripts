@@ -15,7 +15,7 @@ if ! command -v bat &>/dev/null; then
     if [[ "$PKG_MGMT" == "brew" ]]; then
         brew install bat
     else
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_${ARCH}.deb" \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_${ARCH}.deb" \
             -o "bat_${BAT_VERSION}_${ARCH}.deb"
         sudo dpkg -i "bat_${BAT_VERSION}_${ARCH}.deb"
         clean_up

@@ -8,7 +8,7 @@ if ! command -v gcloud &>/dev/null; then
     if [[ "$PKG_MGMT" == "brew" ]]; then
         brew install --cask google-cloud-sdk
     else
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg \
             | sudo gpg --yes --dearmor -o /usr/share/keyrings/cloud.google.gpg
         echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
             | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list > /dev/null

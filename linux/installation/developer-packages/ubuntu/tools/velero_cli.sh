@@ -13,7 +13,7 @@ if ! command -v velero &>/dev/null; then
     echo "[INSTALLING ⬇️] Velero ${VELERO_VERSION}"
 
     TARBALL="velero-${VELERO_VERSION}-${OS}-${ARCH}.tar.gz"
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/vmware-tanzu/velero/releases/download/${VELERO_VERSION}/${TARBALL}" \
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/vmware-tanzu/velero/releases/download/${VELERO_VERSION}/${TARBALL}" \
         -o "$TARBALL"
     tar -xzf "$TARBALL"
     sudo cp "velero-${VELERO_VERSION}-${OS}-${ARCH}/velero" /usr/local/bin/velero

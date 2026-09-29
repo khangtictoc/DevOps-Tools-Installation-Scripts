@@ -16,7 +16,7 @@ if ! command -v kubesec &>/dev/null; then
         brew install kubesec
     else
         TARBALL="kubesec_${OS}_${ARCH}.tar.gz"
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/${TARBALL}" \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/controlplaneio/kubesec/releases/download/v${KUBESEC_VERSION}/${TARBALL}" \
             -o "$TARBALL"
         tar -xzf "$TARBALL"
         sudo cp kubesec /usr/local/bin/kubesec

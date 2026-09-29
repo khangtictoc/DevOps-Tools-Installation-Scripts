@@ -7,7 +7,7 @@ YQ_BINARY="yq_${OS}_${ARCH}"
 
 if ! command -v yq &>/dev/null; then
     echo "[INSTALLING ⬇️] yq"
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz" \
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz" \
         | tar xz && sudo mv ${YQ_BINARY} /usr/local/bin/yq
 
     if ! command -v yq &> /dev/null; then

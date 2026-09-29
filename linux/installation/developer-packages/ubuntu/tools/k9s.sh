@@ -18,7 +18,7 @@ if ! command -v k9s &>/dev/null; then
     if [[ "$PKG_MGMT" == "brew" ]]; then
         brew install derailed/k9s/k9s
     else
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL "https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_${OS}_${ARCH}.deb" \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 600 -fsSL "https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_${OS}_${ARCH}.deb" \
             -o "k9s_${OS}_${ARCH}.deb"
         sudo dpkg -i "./k9s_${OS}_${ARCH}.deb"
         clean_up
@@ -59,7 +59,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
     touch "$CONFIG_FILE"
 fi
 
-curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 120 -fsSL https://github.com/catppuccin/k9s/archive/main.tar.gz \
+curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL https://github.com/catppuccin/k9s/archive/main.tar.gz \
     | tar xz -C "$OUT" --strip-components=2 k9s-main/dist
 
 # Curl on MacOS and Linux are different
