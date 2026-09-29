@@ -21,7 +21,7 @@ if ! command -v jtbl &>/dev/null; then
         esac
 
         TARBALL="jtbl-${JTBL_VERSION}-linux-${jtbl_arch}.tar.gz"
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/kellyjonbrazil/jtbl/releases/download/v${JTBL_VERSION}/${TARBALL}" \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://github.com/kellyjonbrazil/jtbl/releases/download/v${JTBL_VERSION}/${TARBALL}" \
             -o "$TARBALL"
         tar -xzf "$TARBALL"
         sudo mv jtbl /usr/local/bin/jtbl

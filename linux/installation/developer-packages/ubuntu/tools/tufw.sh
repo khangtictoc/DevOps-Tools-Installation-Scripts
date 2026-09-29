@@ -18,7 +18,7 @@ if ! command -v tufw &>/dev/null; then
     echo "[INSTALLING ⬇️] tufw v${TUFW_CLI_VERSION}"
 
     DEB="tufw_${TUFW_CLI_VERSION}_${OS}_${ARCH}.deb"
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/peltho/tufw/releases/download/v${TUFW_CLI_VERSION}/${DEB}" \
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://github.com/peltho/tufw/releases/download/v${TUFW_CLI_VERSION}/${DEB}" \
         -o "$DEB"
     sudo dpkg -i "$DEB"
     clean_up

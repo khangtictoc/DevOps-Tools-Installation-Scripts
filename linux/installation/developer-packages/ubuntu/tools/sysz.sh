@@ -10,7 +10,7 @@ fi
 if ! command -v sysz &>/dev/null; then
     echo "[INSTALLING ⬇️] sysz"
 
-    sudo curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL \
+    sudo curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL \
         https://github.com/joehillen/sysz/releases/latest/download/sysz \
         -o /usr/local/bin/sysz
     sudo chmod +x /usr/local/bin/sysz

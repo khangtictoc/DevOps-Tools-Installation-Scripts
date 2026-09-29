@@ -8,7 +8,7 @@ if ! command -v vagrant &>/dev/null; then
     if [[ "$PKG_MGMT" == "brew" ]]; then
         brew install --cask vagrant
     else
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL https://apt.releases.hashicorp.com/gpg \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL https://apt.releases.hashicorp.com/gpg \
             | sudo gpg --yes --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
         echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
             | sudo tee /etc/apt/sources.list.d/hashicorp.list >/dev/null

@@ -24,7 +24,7 @@ detect_asciinema_binary() {
 
 if ! command -v asciinema &>/dev/null; then
     BINARY=$(detect_asciinema_binary)
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL \
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL \
         "https://github.com/asciinema/asciinema/releases/download/${ASCIINEMA_VERSION}/${BINARY}" \
         -o asciinema
     sudo install asciinema /usr/local/bin/asciinema

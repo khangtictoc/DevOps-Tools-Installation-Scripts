@@ -13,7 +13,7 @@ if ! go version &>/dev/null; then
     echo "[INSTALLING ⬇️] Go ${GO_VERSION}"
     TARBALL="go${GO_VERSION}.${OS}-${ARCH}.tar.gz"
 
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://go.dev/dl/${TARBALL}" -o "$TARBALL"
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://go.dev/dl/${TARBALL}" -o "$TARBALL"
 
     sudo rm -rf /usr/local/go
     sudo tar -C /usr/local -xzf "$TARBALL"

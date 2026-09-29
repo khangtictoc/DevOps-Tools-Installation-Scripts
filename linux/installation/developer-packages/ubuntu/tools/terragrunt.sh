@@ -7,7 +7,7 @@ TFG_VERSION="0.94.0"
 if ! command -v terragrunt &>/dev/null; then
     echo "[INSTALLING ⬇️] Terragrunt v${TFG_VERSION}"
 
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/gruntwork-io/terragrunt/releases/download/v${TFG_VERSION}/terragrunt_${OS}_${ARCH}" \
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://github.com/gruntwork-io/terragrunt/releases/download/v${TFG_VERSION}/terragrunt_${OS}_${ARCH}" \
         -o terragrunt
     sudo chmod +x terragrunt
     sudo mv terragrunt /usr/local/bin/terragrunt

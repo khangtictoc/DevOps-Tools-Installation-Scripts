@@ -27,11 +27,11 @@ if ! command -v lazyssh &>/dev/null; then
     if [[ "$PKG_MGMT" == "brew" ]]; then
         brew install Adembc/homebrew-tap/lazyssh
     else
-        LATEST_TAG=$(curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL https://api.github.com/repos/Adembc/lazyssh/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        LATEST_TAG=$(curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL https://api.github.com/repos/Adembc/lazyssh/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         PLATFORM=$(detect_lazyssh_platform)
         TARBALL="lazyssh_${PLATFORM}.tar.gz"
 
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/Adembc/lazyssh/releases/download/${LATEST_TAG}/${TARBALL}" \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://github.com/Adembc/lazyssh/releases/download/${LATEST_TAG}/${TARBALL}" \
             -o "$TARBALL"
         tar -xzf "$TARBALL"
         sudo mv lazyssh /usr/local/bin/lazyssh

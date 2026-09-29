@@ -12,7 +12,7 @@ if ! command -v az &>/dev/null; then
             . /etc/os-release
             case "$ID" in
                 ubuntu|debian)
-                    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+                    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
                     ;;
                 rhel)
                     MAJOR_VERSION=$(echo "$VERSION_ID" | cut -d. -f1)

@@ -16,7 +16,7 @@ if ! kubectl krew version &>/dev/null; then
     KREW="krew-${OS}_${ARCH}"
 
     echo "[INSTALLING ⬇️] Krew"
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" \
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" \
         -o "${KREW}.tar.gz"
     tar zxf "${KREW}.tar.gz"
     ./"${KREW}" install krew
@@ -54,7 +54,7 @@ kubectl krew install view-secret
 if ! command -v kubectl-node_shell &>/dev/null; then
 
     echo "[INSTALLING ⬇️] kubectl-node-shell"
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell" \
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell" \
         -o kubectl-node_shell
     sudo chmod +x kubectl-node_shell
     sudo mv kubectl-node_shell /usr/local/bin/kubectl-node_shell

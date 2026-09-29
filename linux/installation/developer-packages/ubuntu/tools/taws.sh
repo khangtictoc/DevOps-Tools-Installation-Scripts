@@ -27,7 +27,7 @@ if ! command -v taws &>/dev/null; then
     PLATFORM=$(detect_taws_platform)
     TARBALL="taws-${PLATFORM}.tar.gz"
 
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/huseyinbabal/taws/releases/download/v${TAWS_VERSION}/${TARBALL}" \
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://github.com/huseyinbabal/taws/releases/download/v${TAWS_VERSION}/${TARBALL}" \
         -o "$TARBALL"
     sudo tar -xzf "$TARBALL" -C /usr/local/bin taws
     sudo chmod +x /usr/local/bin/taws

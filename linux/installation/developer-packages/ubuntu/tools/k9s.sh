@@ -59,7 +59,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
     touch "$CONFIG_FILE"
 fi
 
-curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL https://github.com/catppuccin/k9s/archive/main.tar.gz \
+curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL https://github.com/catppuccin/k9s/archive/main.tar.gz \
     | tar xz -C "$OUT" --strip-components=2 k9s-main/dist
 
 # Curl on MacOS and Linux are different

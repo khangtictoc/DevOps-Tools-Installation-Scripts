@@ -17,7 +17,7 @@ if ! command -v terraform &>/dev/null; then
         brew install hashicorp/tap/terraform
     else
         ZIP="terraform_${TF_VERSION}_${OS}_${ARCH}.zip"
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://releases.hashicorp.com/terraform/${TF_VERSION}/${ZIP}" -o "$ZIP"
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://releases.hashicorp.com/terraform/${TF_VERSION}/${ZIP}" -o "$ZIP"
         unzip "$ZIP"
         sudo mv terraform /usr/local/bin/terraform
         clean_up

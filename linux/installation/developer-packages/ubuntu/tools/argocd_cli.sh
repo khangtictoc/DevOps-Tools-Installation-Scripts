@@ -7,7 +7,7 @@ ARGO_CLI_VERSION="v3.0.16"
 if ! command -v argocd &>/dev/null; then
     echo "[INSTALLING ⬇️] ArgoCD CLI"
     BINARY="argocd-${OS}-${ARCH}"
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://github.com/argoproj/argo-cd/releases/download/${ARGO_CLI_VERSION}/${BINARY}" -o argocd
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://github.com/argoproj/argo-cd/releases/download/${ARGO_CLI_VERSION}/${BINARY}" -o argocd
     sudo chmod +x argocd
     sudo mv argocd /usr/local/bin/argocd
 

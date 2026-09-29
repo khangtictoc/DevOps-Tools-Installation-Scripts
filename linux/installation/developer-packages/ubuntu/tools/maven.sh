@@ -12,7 +12,7 @@ MAVEN_VERSION="3.9.13"
 if ! mvn --version &>/dev/null; then
     echo "[INSTALLING ⬇️] Maven v${MAVEN_VERSION}"
 
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
         -o "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
     tar -xzf "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
     sudo mv "apache-maven-${MAVEN_VERSION}" /opt/maven

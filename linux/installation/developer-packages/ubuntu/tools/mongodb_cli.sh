@@ -25,12 +25,12 @@ if ! command -v mongodump &>/dev/null || ! command -v mongosh &>/dev/null; then
 
         # MongoDB Database Tools
         DEB="mongodb-database-tools-${OS_CODENAME}-${SYSTEM_ARCH}-${MONGO_CLI_VERSION}.deb"
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://fastdl.mongodb.org/tools/db/${DEB}" -o "$DEB"
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://fastdl.mongodb.org/tools/db/${DEB}" -o "$DEB"
         sudo dpkg -i "$DEB"
         clean_up
 
         # MongoDB Shell (mongosh)
-        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -fsSL "https://www.mongodb.org/static/pgp/server-${MONGOSH_CLI_VERSION}.asc" \
+        curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -fsSL "https://www.mongodb.org/static/pgp/server-${MONGOSH_CLI_VERSION}.asc" \
             | sudo tee /etc/apt/trusted.gpg.d/server-${MONGOSH_CLI_VERSION}.asc > /dev/null
         echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/${MONGOSH_CLI_VERSION} multiverse" \
             | sudo tee /etc/apt/sources.list.d/mongodb-org-${MONGOSH_CLI_VERSION}.list > /dev/null

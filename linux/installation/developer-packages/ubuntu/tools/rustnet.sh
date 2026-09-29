@@ -20,7 +20,7 @@ install_macos() {
     fi
 
     echo "[INSTALLING ⬇️] Rustnet on macOS"
-    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 300 -L "https://github.com/domcyrus/rustnet/releases/download/${RUSTNET_VERSION}/${DMG_NAME}" -o "$DMG_NAME"
+    curl --retry 3 --retry-delay 5 --connect-timeout 30 --max-time 900 -L "https://github.com/domcyrus/rustnet/releases/download/${RUSTNET_VERSION}/${DMG_NAME}" -o "$DMG_NAME"
 
     MOUNT_POINT="/tmp/RustNetInstall-${RUSTNET_VERSION}-${ARCH}"
     rm -rf "$MOUNT_POINT"
